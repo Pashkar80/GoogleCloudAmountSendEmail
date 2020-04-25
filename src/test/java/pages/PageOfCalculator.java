@@ -95,6 +95,7 @@ public class PageOfCalculator extends PageObject {
 
 
     public void setValueOfInstance(String value)  {
+      // wait.until(ExpectedConditions.titleIs("Google Cloud Platform Pricing Calculator"));
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.switchTo().frame(0);
         driver.switchTo().frame("myFrame");

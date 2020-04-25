@@ -1,7 +1,7 @@
 package tests;
 
+import driver.DriverSingleton;
 import driver.LocalDriver;
-import entity.Order;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
@@ -15,28 +15,31 @@ public class ResultsTest {
 
 
     private WebDriver driver;
-    private String request = "Google Cloud Platform Pricing Calculator";
+
 
 
     @BeforeTest
-    public void initDriver() throws InterruptedException {
+    public void initDriver()  {
         driver = LocalDriver.initWebDriver();
+       //driver = DriverSingleton.getDriver();
         new PageCreateEmail(driver).openPage();
 
     }
 
 
     @Test
-    public void checkAmountEmail() throws InterruptedException {
+    public void checkAmountEmail()  {
         CommonSteps steps = new CommonSteps(driver);
-        String onGoogle = steps.switchWindow();
+        String onGoogleForm = steps.getAmountFromGoogleForm();
         String onEmail = steps.valueAmountEmail();
-        Assert.assertEquals(onEmail, onGoogle);
+        Assert.assertEquals(onEmail,onGoogleForm);
 
     }
 
     @AfterTest
     public void stopDriver() {
-        LocalDriver.stopWebDriver();
+
+      LocalDriver.stopWebDriver();
+     //   DriverSingleton.closeDriver();
     }
 }

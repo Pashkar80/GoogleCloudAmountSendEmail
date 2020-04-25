@@ -78,5 +78,35 @@ public class Order {
         this.amountRent = amountRent;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Order)) return false;
 
+        Order order = (Order) o;
+
+        if (getCountInstance() != null ? !getCountInstance().equals(order.getCountInstance()) : order.getCountInstance() != null)
+            return false;
+        if (getClassVM() != null ? !getClassVM().equals(order.getClassVM()) : order.getClassVM() != null) return false;
+        if (getTypeInstance() != null ? !getTypeInstance().equals(order.getTypeInstance()) : order.getTypeInstance() != null)
+            return false;
+        if (getLocalSSD() != null ? !getLocalSSD().equals(order.getLocalSSD()) : order.getLocalSSD() != null)
+            return false;
+        if (getRegion() != null ? !getRegion().equals(order.getRegion()) : order.getRegion() != null) return false;
+        if (getCommitmentTerm() != null ? !getCommitmentTerm().equals(order.getCommitmentTerm()) : order.getCommitmentTerm() != null)
+            return false;
+        return getAmountRent() != null ? getAmountRent().equals(order.getAmountRent()) : order.getAmountRent() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getCountInstance() != null ? getCountInstance().hashCode() : 0;
+        result = 31 * result + (getClassVM() != null ? getClassVM().hashCode() : 0);
+        result = 31 * result + (getTypeInstance() != null ? getTypeInstance().hashCode() : 0);
+        result = 31 * result + (getLocalSSD() != null ? getLocalSSD().hashCode() : 0);
+        result = 31 * result + (getRegion() != null ? getRegion().hashCode() : 0);
+        result = 31 * result + (getCommitmentTerm() != null ? getCommitmentTerm().hashCode() : 0);
+        result = 31 * result + (getAmountRent() != null ? getAmountRent().hashCode() : 0);
+        return result;
+    }
 }

@@ -24,10 +24,10 @@ private  static  final  String BASE_URL=" https://cloud.google.com/";
 
     }
 
-    WebDriverWait wait = new WebDriverWait(driver, 10);
+    WebDriverWait wait = new WebDriverWait(driver, 30);
 
 
-   @FindBy(xpath = "//input[@placeholder='Результаты поиска']")
+   @FindBy(xpath = "//devsite-search//input")
     private WebElement searchButton;
 
 

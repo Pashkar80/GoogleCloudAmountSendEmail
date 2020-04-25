@@ -1,10 +1,13 @@
 package steps;
 
+import entity.Order;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.*;
+import service.OrderCreator;
+import util.ParseString;
 
 import java.util.ArrayList;
 
@@ -12,6 +15,7 @@ import java.util.ArrayList;
 public class CommonSteps {
     private WebDriver driver;
     private String request = "Google Cloud Platform Pricing Calculator";
+    Order order = OrderCreator.withDataFromTask();
     public CommonSteps(WebDriver driver) {
         this.driver = driver;
     }
@@ -45,7 +49,7 @@ public class CommonSteps {
 
     }
 
-    public void openEmail(){
+    public  void openEmail(){
         PageCreateEmail pageCreateEmail = new PageCreateEmail(driver);
         pageCreateEmail.pushButtonOpenEmail();
 
@@ -65,7 +69,7 @@ public class CommonSteps {
         return pageOfCalculator;
     }
 
-    public String switchWindow()  {
+    public String getAmountFromGoogleForm()  {
         CommonSteps steps= new CommonSteps(driver);
         String name=steps.produceEmailName();
         String email=driver.getWindowHandle();
@@ -76,21 +80,21 @@ public class CommonSteps {
         driver.switchTo().window(allWindows_1.get(1));
         steps.pageSearching(request);
         steps.getSearchingResult();
-        steps.fillOrderForm("4");
+        steps.fillOrderForm(order.getCountInstance());
         String value = steps.getTitleValueAmount();
         steps.sendEmail(name);
         String calc=driver.getWindowHandle();
         driver.switchTo().window(email);
         javascriptExecutor.executeScript("window.scrollBy(0,450)", "");
-        steps.openEmail();
         return value;
     }
 
 
     public  String valueAmountEmail(){
         PageCreateEmail pageCreateEmail = new PageCreateEmail(driver);
-        String title = pageCreateEmail.getAmount();
-        String value= ParseString.getPartString(title);
+        CommonSteps steps = new CommonSteps(driver);
+        steps.openEmail();
+        String value = pageCreateEmail.getAmount();
         return value;
     }
 
@@ -99,6 +103,43 @@ public class CommonSteps {
         String title = pageOfResultsEnterData.getValueAmuont();
         String value = ParseString.parseLineForWordsOnMiddle(title);
         return value;
+    }
+
+    public String getTitleVirtualMachineClass() {
+        PageOfResultsEnterData pageOfResultsEnterData = new PageOfResultsEnterData(driver);
+        String title = pageOfResultsEnterData.getValueMachineClass();
+        String value = ParseString.getPartString(title);
+        return value;
+    }
+
+    public String getTitleInstanceType() {
+        PageOfResultsEnterData pageOfResultsEnterData = new PageOfResultsEnterData(driver);
+        String title = pageOfResultsEnterData.getValueInstanceType();
+        String value = ParseString.getPartString(title);
+        return value;
+    }
+
+    public String getTitleRegion() {
+        PageOfResultsEnterData pageOfResultsEnterData = new PageOfResultsEnterData(driver);
+        String title = pageOfResultsEnterData.getValueRegion();
+        String value = ParseString.getPartString(title);
+        return value;
+    }
+
+    public String getTitleLocalSSD() {
+        PageOfResultsEnterData pageOfResultsEnterData = new PageOfResultsEnterData(driver);
+        String title = pageOfResultsEnterData.getValueLocalSSD();
+        String value= ParseString.parseLineForLastsWords(title);
+        return value;
+    }
+
+    public String getTitleCommitmentTerm() {
+
+        PageOfResultsEnterData pageOfResultsEnterData = new PageOfResultsEnterData(driver);
+        String title = pageOfResultsEnterData.getValueCommitmentTerm();
+        String value = ParseString.getPartString(title);
+        return value;
+
     }
 
 

@@ -1,0 +1,17 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+
+<suite name="Smoke" verbose="1">
+    <test name="AutoQA">
+        <classes>
+            <class name="tests.ResultsTestWithData">
+                <methods>
+                    <include name="checkValueVirtualMachineClass"/>
+                    <include name="checkValueRegion"/>
+                    <include name="checkValueLocalSSD"/>
+
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
